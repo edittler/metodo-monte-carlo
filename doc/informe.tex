@@ -1,0 +1,118 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+%\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage{fullpage}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor} % Colores
+\usepackage{graphicx} % Permite incluir gráficos
+\usepackage[hang, bf]{caption} % Personaliza los subtítulos de las figuras y tablas
+\usepackage{float} % Permite posicionar mejor las figuras y tablas
+\usepackage{listings} % Permite insertar código fuente
+\usepackage{pgfplots}
+%\pgfplotsset{compat=1.13}
+
+\definecolor{darkblue}{rgb}{0,0,0.4}
+\definecolor{darkgreen}{rgb}{0,0.4,0}
+
+\lstset{ % Elijo formato de bloques de código fuente
+	backgroundcolor=\color{gray!5},
+	basicstyle=\ttfamily\footnotesize,
+	breaklines=true,
+	commentstyle=\color{darkgreen},
+	extendedchars=true,
+	frame=single,
+	language=octave,
+	literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1, % Escapeo caracteres especiales
+	keywordstyle=\color{darkblue},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false,
+	stringstyle=\color{red}
+}
+
+\begin{document}
+
+\title{Método Monte Carlo}
+\date{\today}
+\author{Ezequiel Pérez Dittler, FIUBA}
+
+\maketitle
+\newpage
+
+\section{Enunciado}
+Sea $f: \mathbb{R} \to \mathbb{R}$ una función continua y no negativa.
+Sea $M > 0$ el valor máximo de la función $f$ sobre el intervalo $[a, b]$. \\
+
+(a) Se elige al azar un punto de coordenadas $(X, Y)$ dentro del rectángulo de
+vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$. Relacionar la probabilidad
+del evento $A = \{ Y \leqslant f(X) \}$ con el valor de la integral
+$\int\limits_a^b f(x) dx$. \\
+
+(b) Si se conoce el valor de la probabilidad, $P(A)$, del evento
+$A = \{ Y \leqslant f(X) \}$, ¿cómo se calcula la integral
+$\int\limits_a^b f(x) dx$? \\
+
+(c) Obtener un método que permita estimar el valor de la integral
+$\int\limits_a^b f(x) dx$ en base a los resultados de $n$ simulaciones del
+experimento descrito en Inciso (a). \\
+
+(d) Estimar el valor de la integral $\int\limits_0^2 e^{-x^{2}} dx$ utilizando
+el método obtenido en Inciso (c) basándose en los resultados de 10000
+simulaciones.
+
+\section{Resolución}
+\subsection{Inciso (a)}
+\begin{figure}[h]
+  \centering
+  \pgfplotsset{compat=1.3}
+  \begin{tikzpicture}
+    \begin{axis}[
+        xlabel={$X$},
+		ylabel={$Y$},
+        axis x line=bottom,
+        axis y line=left,
+		enlarge x limits=true,
+		enlarge y limits=true,
+		symbolic x coords={0,a,b},
+		area style
+      ]
+      \addplot coordinates {(a,11) (b,11)} \closedcycle;
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$}
+\end{figure}
+
+\[
+  P(A) = P( Y \leqslant f(X) ) = \frac{ area(A) }{ area(\Omega) } =
+  \frac{ \int\limits_a^b f(x) dx }{ (b-a) . M }
+\]
+
+\subsection{Inciso (b)}
+
+Siendo $P(A)$ conocido, se puede estimar el valor de la integral
+$\int\limits_a^b f(x) dx$ del siguiente modo
+
+\[
+  \int\limits_a^b f(x) dx = P(A).(b-a) . M
+\]
+
+\subsection{Inciso (c)}
+
+\begin{lstlisting}[caption={distribucionMixta.m},label={lst:distribucionMixta}]
+function r = distribucionMixta(n)
+  m = n * 3;
+  if (m < 1)
+    r = -2;
+  elseif (m < 2)
+    r = m * 2 - 3;
+  else
+    r = 2;
+  end
+end
+\end{lstlisting}
+
+\end{document}
