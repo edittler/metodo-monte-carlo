@@ -88,10 +88,10 @@ simulaciones.
         axis y line=left,
         enlarge x limits=true,
         enlarge y limits=true,
-        symbolic x coords={a,b},
+        %symbolic x coords={a,b},
         area style
       ]
-      \addplot coordinates {(a,11) (b,11)} \closedcycle;
+      \addplot coordinates {(2,1) (6,1)} \closedcycle;
     \end{axis}
   \end{tikzpicture}
   \caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$}
@@ -102,6 +102,7 @@ simulaciones.
   \frac{ \int\limits_a^b f(x) dx }{ (b-a) . M }
 \]
 
+\newpage
 \subsection{Inciso (b)}
 
 Siendo $P(A)$ conocido, se puede estimar el valor de la integral
@@ -112,10 +113,37 @@ $\int\limits_a^b f(x) dx$ del siguiente modo
 \]
 
 \subsection{Inciso (c)}
+Siendo dato los valores $a$, $b$, $M$ y conocida la función $f(x)$, se puede
+estimar el valor de la integral $\int\limits_a^b f(x) dx$ obteniendo un valor
+estimado de $P(A)$, $A$ el evento $A = \{ Y \leqslant f(X) \}$. \\
+
+Para ello, se debe generar un vector aleatorio $(X,Y)$ y verificar si forma
+parte del evento $A$, es decir, si $Y \leqslant f(X)$. Repitiendo varias veces
+la simulación se puede obtener un mejor valor de $P(A)$.
+
+\subsection{Inciso (d)}
+Se desea el valor de $\int\limits_0^2 e^{-x^2} dx$ utilizando el método,
+basándose en resultados de 10000 simulaciones.
+De la integral se pueden extraer los siguientes datos:
+
+\begin{itemize}
+\item $a = 0$
+\item $b = 2$
+\item $M = 1$
+\item $f(x) = e^{-x^2}$
+\end{itemize}
+~\\
+
+Se diseñó el siguiente algoritmo en Octave:
 
 \lstinputlisting[
     caption={Algoritmo Monte Carlo en Octave},
     label={lst:monte_carlo}
   ]{../src/monte_carlo.m}
+~\\
+
+Corriendo el algoritmo, se obtuvo el valor 0.88460.
+Siendo el valor analítico de la integral 0.88208, se puede concluir que el
+método Monte Carlo aproxima bastante al valor.
 
 \end{document}
