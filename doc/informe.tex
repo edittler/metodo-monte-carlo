@@ -42,10 +42,12 @@
   {\scshape\LARGE Facultad de Ingeniería \par}
   \vspace{1cm}
   {\scshape\Large 61.09 Probabilidad y Estadística B\par}
+  {\scshape\Large Curso 27\par}
   \vspace{1.5cm}
   {\huge\bfseries Método Monte Carlo\par}
   \vspace{2cm}
   {\Large\itshape Ezequiel Pérez Dittler \par}
+  {\Large\itshape Padrón 91.135 \par}
 
   \vfill
 
@@ -88,13 +90,19 @@ simulaciones.
         axis y line=left,
         enlarge x limits=true,
         enlarge y limits=true,
+        xmin=0.18, xmax=2,
+        ymin=0.09, ymax=1,
         %symbolic x coords={a,b},
-        area style
+        area style,
+        legend cell align=left,
+        legend pos=outer north east
       ]
-      \addplot coordinates {(2,1) (6,1)} \closedcycle;
+      \addplot coordinates {(0,1) (2,1)} \closedcycle;
+      \addplot {e^(-x^2)};
+      \legend{$\Omega$,$A$}
     \end{axis}
   \end{tikzpicture}
-  \caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$}
+  \caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$ con $a=0$, $b=2$, $M=1$}
 \end{figure}
 
 \[
@@ -144,6 +152,6 @@ Se diseñó el siguiente algoritmo en Octave:
 
 Corriendo el algoritmo, se obtuvo el valor 0.88460.
 Siendo el valor analítico de la integral 0.88208, se puede concluir que el
-método Monte Carlo aproxima bastante al valor.
+método Monte Carlo aproxima bastante al valor analítico.
 
 \end{document}
