@@ -57,7 +57,7 @@
 
 \newpage
 
-\section{Enunciado}
+\section*{Enunciado}
 Sea $f: \mathbb{R} \to \mathbb{R}$ una función continua y no negativa.
 Sea $M > 0$ el valor máximo de la función $f$ sobre el intervalo $[a, b]$. \\
 
@@ -78,8 +78,9 @@ experimento descrito en Inciso (a). \\
 el método obtenido en Inciso (c) basándose en los resultados de 10000
 simulaciones.
 
-\section{Resolución}
-\subsection{Inciso (a)}
+\newpage
+\section*{Resolución}
+\subsection*{Inciso (a)}
 \begin{figure}[h]
   \centering
   \begin{tikzpicture}
@@ -102,7 +103,7 @@ simulaciones.
       \legend{$\Omega$,$A$}
     \end{axis}
   \end{tikzpicture}
-  \caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$ con $a=0$, $b=2$, $M=1$}
+  %\caption{Rectángulo de vértices $(a, 0)$, $(b, 0)$, $(b, M)$, $(a, M)$ con $a=0$, $b=2$, $M=1$}
 \end{figure}
 
 \[
@@ -110,8 +111,7 @@ simulaciones.
   \frac{ \int\limits_a^b f(x) dx }{ (b-a) . M }
 \]
 
-\newpage
-\subsection{Inciso (b)}
+\subsection*{Inciso (b)}
 
 Siendo $P(A)$ conocido, se puede estimar el valor de la integral
 $\int\limits_a^b f(x) dx$ del siguiente modo
@@ -120,16 +120,26 @@ $\int\limits_a^b f(x) dx$ del siguiente modo
   \int\limits_a^b f(x) dx = P(A).(b-a) . M
 \]
 
-\subsection{Inciso (c)}
-Siendo dato los valores $a$, $b$, $M$ y conocida la función $f(x)$, se puede
-estimar el valor de la integral $\int\limits_a^b f(x) dx$ obteniendo un valor
-estimado de $P(A)$, $A$ el evento $A = \{ Y \leqslant f(X) \}$. \\
+\subsection*{Inciso (c)}
+Siendo conocidos los valores de $a$, $b$, $M$ y conocida la función $f(x)$,
+se puede estimar el valor de la integral $\int\limits_a^b f(x) dx$ obteniendo
+un valor estimado de $P(A)$, $A = \{ Y \leqslant f(X) \}$. \\
 
-Para ello, se debe generar un vector aleatorio $(X,Y)$ y verificar si forma
+Para ello, se genera un vector aleatorio $(X,Y)$ y se verifica si forma
 parte del evento $A$, es decir, si $Y \leqslant f(X)$. Repitiendo varias veces
-la simulación se puede obtener un mejor valor de $P(A)$.
+la simulación se puede obtener un mejor valor de $P(A)$. \\
 
-\subsection{Inciso (d)}
+Siendo $n$ la cantidad de simulaciones, la probabilidad se puede estimar de la 
+siguiente forma:
+
+\[
+  P(A) = \frac{ \#\{
+      i \, \epsilon \{ 1, \dots, n \} : y_i \leqslant f(x_i) \}
+    }{ n }
+\]
+
+\newpage
+\subsection*{Inciso (d)}
 Se desea el valor de $\int\limits_0^2 e^{-x^2} dx$ utilizando el método,
 basándose en resultados de 10000 simulaciones.
 De la integral se pueden extraer los siguientes datos:

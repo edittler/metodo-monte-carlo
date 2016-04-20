@@ -11,7 +11,7 @@ Y = rand(1, cant_simulaciones) * M;
 
 % Aplico la funcion e ^ (- x ^2) y comparo con Y
 f_X = exp(-(X .^ 2));
-A = Y < f_X;
+A = Y <= f_X;
 
 % Calculo la probabilidad y finalmente el valor de la integral
 probabilidad = sum(A) / cant_simulaciones;
